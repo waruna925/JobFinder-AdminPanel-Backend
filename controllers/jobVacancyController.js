@@ -1,11 +1,35 @@
 import JobVacancy from "../models/jobVacancyModel.js";
+import { isAdmin } from "./userController.js"
+
 
 export async function createJob(req, res) {
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Please log in and try again"
+        });
+    }
+
+    if(!isAdmin(req)){
+        return res.status(403).json({
+            message:"You are not authorized to create job vacancies"
+        })
+        
+    }
 
     try {
-        const jobVacancy = new JobVacancy(
-            req.body
-        );
+        const jobVacancy = new JobVacancy({
+            jobId: req.body.jobId,
+            jobRole:req.body.jobRole,
+            location:req.body.location,
+            faculty:req.body.faculty,
+            department:req.body.department,
+            jobDescription:req.body.jobDescription,
+            jobResponsibilities:req.body.jobResponsibilities,
+            postDate:req.body.postDate,
+            deadline:req.body.deadline,
+            jobType:req.body.jobType,
+            salary:req.body.salary
+    });
 
         await jobVacancy.save();
         res.status(201).send({ message: "Job Vacancy Created Successfully" });
@@ -18,6 +42,8 @@ export async function createJob(req, res) {
 }
 
 export async function getAllJobs(req, res) {
+
+
     try{
         const jobVacancy=await JobVacancy.find();
         res.status(200).json(jobVacancy);
@@ -28,6 +54,7 @@ export async function getAllJobs(req, res) {
 }
 
 export async function getJob(req,res) {
+
     const jobId=req.params.id;
 
     try{
@@ -46,6 +73,18 @@ export async function getJob(req,res) {
 
 export async function updateJob(req,res){
 
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Please log in and try again"
+        });
+    }
+
+    if(!isAdmin(req)){
+        res.status(403).json({
+            message:"You are not authorized to create job vacancies"
+        })
+        return
+    }
 
     const jobId=req.params.id;
     const updatingData=req.body;
@@ -63,6 +102,20 @@ export async function updateJob(req,res){
 }
 
 export async function activeBtn(req,res){
+
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Please log in and try again"
+        });
+    }
+
+    if(!isAdmin(req)){
+        res.status(403).json({
+            message:"You are not authorized to create job vacancies"
+        })
+        return
+    }
+
     const jobId=req.params.id;
 
     const isAvailable=req.body.isAvailable;
