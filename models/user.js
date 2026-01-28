@@ -6,7 +6,7 @@ const userSchema  =mongoose.Schema({
         required:true,
         unique:true,
     },
-     userName:{
+    userName:{
         type:String,
         unique:true,
         required:true,

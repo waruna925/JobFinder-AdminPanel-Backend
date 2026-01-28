@@ -6,6 +6,6 @@ const userRouter=express.Router();
 userRouter.post("/login",loginUser)
 userRouter.post("/",createUser)
 userRouter.get("/",getUsers)
-userRouter.put("/:email",updateUser)
+userRouter.put("/:userName",updateUser)
 
 export default userRouter

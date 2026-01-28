@@ -72,7 +72,7 @@ export async function updateUser(req,res){
             message:"Unauthorized:Admins Only"
         })
     }
-    await User.updateOne({email:req.params.email},req.body)
+    await User.updateOne({userName:req.params.userName},req.body)
     .then(()=>res.json({
         message:"User updated successfully"
     }))
