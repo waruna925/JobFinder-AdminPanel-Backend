@@ -81,6 +81,33 @@ export async function updateUser(req,res){
     }))
 }
 
+export function getUserByUserName(req,res){
+    if(!req.user || req.user.role!="admin"){
+        return res.status(403).json({
+            message:"Unuthorized:Access Denied"
+        })
+    }
+    const userName=req.params.userName;
+
+    User.findOne({userName:userName}).then((user)=>{
+        if(user){
+            res.json({
+                message:"User found",
+                user:user
+            })
+        }
+        else{
+            res.status(404).json({
+                message:"User not Found"
+            })
+        }
+    })
+    .catch(()=>{
+        res.status(500).json({
+            message:"Error searching for user"
+        })
+    })
+}
 export function isAdmin(req){
     if(req.user==null){
         return false
