@@ -4,8 +4,10 @@ import mongoose from 'mongoose';
 import jobVacancyRouter from './routes/jobVacancyRouter.js';
 import userRouter from './routes/userRouter.js'
 import jwt from 'jsonwebtoken'
+import cors from 'cors'
 
 const app = express();
+app.use(cors())
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
