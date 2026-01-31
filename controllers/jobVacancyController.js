@@ -3,18 +3,18 @@ import { isAdmin } from "./userController.js"
 
 
 export async function createJob(req, res) {
-    if (!req.user) {
-        return res.status(403).json({
-            message: "Please log in and try again"
-        });
-    }
+    // if (!req.user) {
+    //     return res.status(403).json({
+    //         message: "Please log in and try again"
+    //     });
+    // }
 
-    if(!isAdmin(req)){
-        return res.status(403).json({
-            message:"You are not authorized to create job vacancies"
-        })
+    // if(!isAdmin(req)){
+    //     return res.status(403).json({
+    //         message:"You are not authorized to create job vacancies"
+    //     })
         
-    }
+    // }
 
     try {
         const jobVacancy = new JobVacancy({
@@ -73,18 +73,18 @@ export async function getJob(req,res) {
 
 export async function updateJob(req,res){
 
-    if (!req.user) {
-        return res.status(403).json({
-            message: "Please log in and try again"
-        });
-    }
+    // if (!req.user) {
+    //     return res.status(403).json({
+    //         message: "Please log in and try again"
+    //     });
+    // }
 
-    if(!isAdmin(req)){
-        res.status(403).json({
-            message:"You are not authorized to create job vacancies"
-        })
-        return
-    }
+    // if(!isAdmin(req)){
+    //     res.status(403).json({
+    //         message:"You are not authorized to create job vacancies"
+    //     })
+    //     return
+    // }
 
     const jobId=req.params.id;
     const updatingData=req.body;
@@ -103,18 +103,18 @@ export async function updateJob(req,res){
 
 export async function activeBtn(req,res){
 
-    if (!req.user) {
-        return res.status(403).json({
-            message: "Please log in and try again"
-        });
-    }
+    // if (!req.user) {
+    //     return res.status(403).json({
+    //         message: "Please log in and try again"
+    //     });
+    // }
 
-    if(!isAdmin(req)){
-        res.status(403).json({
-            message:"You are not authorized to create job vacancies"
-        })
-        return
-    }
+    // if(!isAdmin(req)){
+    //     res.status(403).json({
+    //         message:"You are not authorized to create job vacancies"
+    //     })
+    //     return
+    // }
 
     const jobId=req.params.id;
 
