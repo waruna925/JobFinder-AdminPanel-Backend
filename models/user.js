@@ -6,7 +6,7 @@ const userSchema  =mongoose.Schema({
         required:true,
         unique:true,
     },
-    userName:{
+     userName:{
         type:String,
         unique:true,
         required:true,
@@ -32,6 +32,14 @@ const userSchema  =mongoose.Schema({
     },
     age:{
         type:Number,
+        required:false,
+    },
+    gender:{
+        type:String,
+        required:false,
+    },
+    birthday:{
+        type:String,
         required:false,
     },
     role:{
