@@ -147,3 +147,25 @@ export async function deleteUser(req, res) {
         res.status(500).json({ message: "Delete failed" });
     }
 }
+
+export async function toggleBlockUser(req, res) {
+    if (!req.user || req.user.role !== "admin") {
+        return res.status(403).json({ message: "Unauthorized: Admins Only" });
+    }
+
+    try {
+        const user = await User.findOne({ userName: req.params.userName });
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        
+        user.isBlocked = !user.isBlocked;
+        await user.save();
+
+        res.json({ 
+            message: `User ${user.isBlocked ? 'blocked' : 'unblocked'} successfully`,
+            isBlocked: user.isBlocked 
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Toggle block status failed" });
+    }
+}
